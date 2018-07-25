@@ -13,3 +13,10 @@ class Main extends React.Component{
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
+    super(props)
+  }
+}
+
+
+ReactDOM.render(<App />, document.getElementById('root'));
+registerServiceWorker();
