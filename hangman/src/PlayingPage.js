@@ -137,8 +137,8 @@ endGame(){
                 state:{p1Name:this.props.location.state.p1Name,
                        p2Name:this.props.location.state.p2Name,
                        rounds:this.props.location.state.rounds,
-                       p1Score:this.props.location.state.p1Score,
-                       p2Score:this.props.location.state.p2Score
+                       p1Score:this.state.p1Score,
+                       p2Score:this.state.p2Score
 
                 }
                   }} />
