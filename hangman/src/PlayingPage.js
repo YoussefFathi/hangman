@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Header,Label,Input,Button,Form,Divider} from 'semantic-ui-react';
+import {Header,Label,Input,Button,Form,Divider,Image} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
-
+import './index.css'
+import teezi from './images/hangman-0.png'
 ////
 function setCharAt(str,index,chr) {
     if(index > str.length-1) return str;
@@ -169,9 +170,9 @@ endGame(){
           </div>
         )
       }else{
-    return(
-    <div>
-      <center>
+    return([
+    <div className="content">
+     
         <Header>Rounds:{this.state.rounds}</Header>
         <Divider hidden fitted/>
         {this.props.location.state.p1Name}:{this.state.p1Score}
@@ -186,9 +187,12 @@ endGame(){
         <Divider hidden fitted/>
         <Input compact maxLength='1' type="text" placeholder='Enter Letter' ref={(a)=>{this.input=a}} onChange={this.changeGuess}/>
         <Button primary onClick={this.validateGuess}>Ok</Button>
-      </center>
+     
+    </div>,
+    <div className="images">
+      <Image fluid src={teezi} />
     </div>
-    )
+    ])
   }
 }
 }
