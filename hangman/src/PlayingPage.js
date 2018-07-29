@@ -8,6 +8,7 @@ function setCharAt(str,index,chr) {
     if(index > str.length-1) return str;
     return str.substr(0,index) + chr + str.substr(index+1);
 }
+
 export default class Game extends React.Component{
   constructor(props){
     super(props);
@@ -29,6 +30,7 @@ export default class Game extends React.Component{
     this.checkEnd=this.checkEnd.bind(this);
     this.setCurrentPlayer=this.setCurrentPlayer.bind(this);
     this.playAgain=this.playAgain.bind(this);
+    this.endGame=this.endGame.bind(this);
   }
   generateHidden(){
     let hidden='';
@@ -46,6 +48,7 @@ export default class Game extends React.Component{
   }
   changeGuess(event){
     this.setState({guessedChar:event.target.value})
+   
   }
   generateHiddenChar(ch,str){
     let hidden=str;
@@ -77,7 +80,9 @@ return hidden;
           this.setState({livesWasted:this.state.livesWasted+1})
           this.checkEnd('l',this.state.livesWasted+1);
         }
-
+        console.log(this.input);
+        this.input.inputRef.value='';
+        this.input.inputRef.placeholder='Enter Letter';
   }
   checkEnd(str,lives,hidden){
     let p1score=this.state.p1Score;
@@ -115,13 +120,16 @@ return hidden;
 playAgain(){
   this.setState({playAgain:true});
 }
+endGame(){
+  this.setState({endGame:true})
+}
   render(){
     if(!this.props.location.state){
         return(<Redirect to={{
                 pathname: '/'
                   }} />
         )
-    }
+    }else 
     if(this.state.endGame){
       return(
         <Redirect to={{
@@ -135,7 +143,7 @@ playAgain(){
                 }
                   }} />
             )
-
+          }else
     if(this.state.playAgain){
       return(  <Redirect to={{
                 pathname: 'submitWord',
@@ -146,7 +154,7 @@ playAgain(){
 
       )
 
-    }
+    }else
     if(this.state.isRoundDone){
       return(
           <div>
@@ -160,7 +168,7 @@ playAgain(){
             <Button secondary onClick={this.endGame}>End Game</Button>
           </div>
         )
-      }
+      }else{
     return(
     <div>
       <center>
@@ -176,10 +184,12 @@ playAgain(){
         <Divider hidden fitted/>
         {this.state.hiddenWord}
         <Divider hidden fitted/>
-        <Input compact maxLength='1' type="text" value={this.state.guessedChar} onChange={this.changeGuess}/>
+        <Input compact maxLength='1' type="text" placeholder='Enter Letter' ref={(a)=>{this.input=a}} onChange={this.changeGuess}/>
         <Button primary onClick={this.validateGuess}>Ok</Button>
       </center>
     </div>
     )
   }
 }
+}
+
