@@ -56,7 +56,10 @@ export default class Guess extends React.Component{
                      word:this.state.word,
                      hint:this.state.hint,
                      category:this.state.category,
-                     currentPlayer:this.props.location.state.currentPlayer
+                     currentPlayer:this.props.location.state.currentPlayer,
+                     rounds:this.props.location.state.rounds,
+                     p1Score:this.props.location.state.p1Score,
+                     p2Score:this.props.location.state.p2Score
 
               }
                 }} />

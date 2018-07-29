@@ -4,6 +4,7 @@ import './index.css';
 import MainMenu from './FirstPage';
 import SecondPage from './SecondPage';
 import PlayingPage from './PlayingPage';
+import WinScreen from './WinScreen';
 import {Header,Label,Input,Button,Form} from 'semantic-ui-react';
 import { BrowserRouter } from 'react-router-dom';
 import { Link, Route, Switch } from 'react-router-dom';
@@ -23,6 +24,7 @@ class Entry extends React.Component{
       <Route exact path="/" component={MainMenu}></Route>
       <Route exact path="/submitWord" component={SecondPage}></Route>
       <Route exact path="/Game" component={PlayingPage}></Route>
+      <Route exact path="/Winscreen" component={WinScreen}></Route>
       </div>
     </BrowserRouter>
 

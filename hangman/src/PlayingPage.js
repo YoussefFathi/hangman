@@ -12,20 +12,23 @@ export default class Game extends React.Component{
   constructor(props){
     super(props);
     this.state={
-      rounds:1,
-      p1Score:0,
-      p2Score:0,
+      rounds:this.props.location.state.rounds,
+      p1Score:this.props.location.state.p1Score,
+      p2Score:this.props.location.state.p2Score,
       hiddenWord:'',
       livesWasted:0,
       guessedChar:'',
       isRoundDone:false,
-      result:''
+      result:'',
+      playAgain:false
     }
     this.generateHidden=this.generateHidden.bind(this);
     this.changeGuess=this.changeGuess.bind(this);
     this.validateGuess=this.validateGuess.bind(this);
     this.generateHiddenChar=this.generateHiddenChar.bind(this);
     this.checkEnd=this.checkEnd.bind(this);
+    this.setCurrentPlayer=this.setCurrentPlayer.bind(this);
+    this.playAgain=this.playAgain.bind(this);
   }
   generateHidden(){
     let hidden='';
@@ -93,7 +96,7 @@ return hidden;
           p1score++;
         else
           p2score++;
-        this.setState({isRoundDone:true,p1Score:p1score,p2Score:p2score,result:'won'});}
+        this.setState({isRoundDone:true,p1Score:p1score,p2Score:p2score,result:'won',rounds:this.state.rounds+1});}
       return;
     }
     if(lives==8){
@@ -101,10 +104,17 @@ return hidden;
         p2score++;
       else
         p1score++;
-      this.setState({isRoundDone:true,p1Score:p1score,p2Score:p2score,result:'lost'});
+      this.setState({isRoundDone:true,p1Score:p1score,p2Score:p2score,result:'lost',rounds:this.state.rounds+1});
     }
   }
-
+  setCurrentPlayer(){
+    if(this.props.location.state.currentPlayer==this.props.location.state.p1Name)
+      return this.props.location.state.p2Name;
+    return this.props.location.state.p1Name;
+  }
+playAgain(){
+  this.setState({playAgain:true});
+}
   render(){
     if(!this.props.location.state){
         return(<Redirect to={{
@@ -112,14 +122,42 @@ return hidden;
                   }} />
         )
     }
-      if(this.state.isRoundDone){
-        return(
+    if(this.state.endGame){
+      return(
+        <Redirect to={{
+                pathname: '/Winscreen',
+                state:{p1Name:this.props.location.state.p1Name,
+                       p2Name:this.props.location.state.p2Name,
+                       rounds:this.props.location.state.rounds,
+                       p1Score:this.props.location.state.p1Score,
+                       p2Score:this.props.location.state.p2Score
+
+                }
+                  }} />
+            )
+
+    if(this.state.playAgain){
+      return(  <Redirect to={{
+                pathname: 'submitWord',
+                state: { p1Name: this.props.location.state.p1Name,p2Name:this.props.location.state.p2Name,currentPlayer:this.setCurrentPlayer(),
+                         rounds:this.state.rounds,p1Score:this.state.p1Score,p2Score:this.state.p2Score}
+            }} />
+
+
+      )
+
+    }
+    if(this.state.isRoundDone){
+      return(
           <div>
             {this.props.location.state.currentPlayer},You {this.state.result} this round.
             <Divider hidden fitted/>
             {this.props.location.state.p1Name} Score:{this.state.p1Score}
             <Divider hidden fitted/>
             {this.props.location.state.p2Name} Score:{this.state.p2Score}
+            <Divider hidden fitted/>
+            <Button primary onClick={this.playAgain}>Play Again</Button>
+            <Button secondary onClick={this.endGame}>End Game</Button>
           </div>
         )
       }

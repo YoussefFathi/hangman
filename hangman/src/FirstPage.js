@@ -30,7 +30,8 @@ export default class MainMenu extends React.Component{
     if(this.state.done){
     return (<Redirect to={{
               pathname: 'submitWord',
-              state: { p1Name: this.state.player1Name,p2Name:this.state.player2Name,currentPlayer:this.state.player1Name}
+              state: { p1Name: this.state.player1Name,p2Name:this.state.player2Name,currentPlayer:this.state.player1Name,
+                      rounds:1,p1Score:0,p2Score:0}
           }} />)
    }
     return(
