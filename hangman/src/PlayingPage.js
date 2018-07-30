@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Header,Label,Input,Button,Form,Divider,Image} from 'semantic-ui-react';
+import {Header,Label,Input,Button,Form,Divider,Image,Message,Icon,Modal} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
 import './index.css'
 
@@ -22,7 +22,8 @@ export default class Game extends React.Component{
       guessedChar:'',
       isRoundDone:false,
       result:'',
-      playAgain:false
+      playAgain:false,
+      isHintHidden:false
     }
     this.generateHidden=this.generateHidden.bind(this);
     this.changeGuess=this.changeGuess.bind(this);
@@ -32,6 +33,7 @@ export default class Game extends React.Component{
     this.setCurrentPlayer=this.setCurrentPlayer.bind(this);
     this.playAgain=this.playAgain.bind(this);
     this.endGame=this.endGame.bind(this);
+    this.dispHint=this.dispHint.bind(this);
   }
   generateHidden(){
     let hidden='';
@@ -49,7 +51,7 @@ export default class Game extends React.Component{
   }
   changeGuess(event){
     this.setState({guessedChar:event.target.value})
-   
+
   }
   generateHiddenChar(ch,str){
     let hidden=str;
@@ -105,7 +107,7 @@ return hidden;
         this.setState({isRoundDone:true,p1Score:p1score,p2Score:p2score,result:'won',rounds:this.state.rounds+1});}
       return;
     }
-    if(lives==8){
+    if(lives==9){
       if(changeW=='p1')
         p2score++;
       else
@@ -124,6 +126,13 @@ playAgain(){
 endGame(){
   this.setState({endGame:true})
 }
+dispHint(){
+  if(this.state.isHintHidden)
+    this.setState({isHintHidden:false});
+  else {
+    this.setState({isHintHidden:true});
+  }
+}
   render(){
     let trials = this.state.livesWasted;
     var image=require('./images/hangman-'+trials+'.png');
@@ -132,7 +141,7 @@ endGame(){
                 pathname: '/'
                   }} />
         )
-    }else 
+    }else
     if(this.state.endGame){
       return(
         <Redirect to={{
@@ -174,7 +183,6 @@ endGame(){
       }else{
     return([
     <div className="content">
-     
         <Header>Rounds:{this.state.rounds}</Header>
         <Divider hidden fitted/>
         {this.props.location.state.p1Name}:{this.state.p1Score}
@@ -185,17 +193,27 @@ endGame(){
         <Divider hidden fitted/>
         Category:{this.props.location.state.category}
         <Divider hidden fitted/>
+        <Modal open={this.state.isHintHidden}  basic size='mini'>
+          <Modal.Content id="modal-content">
+          <Header id="modal-header" inverted>Hint:</Header>
+          {this.props.location.state.hint}
+          <Divider hidden fitted/>
+          <Button id="modal-button" basic size='huge' compact onClick={this.dispHint} color='teal'>OK</Button>
+      </Modal.Content>
+
+    </Modal>
+        <Divider hidden fitted/>
         {this.state.hiddenWord}
         <Divider hidden fitted/>
         <Input compact maxLength='1' type="text" placeholder='Enter Letter' ref={(a)=>{this.input=a}} onChange={this.changeGuess}/>
         <Button primary onClick={this.validateGuess}>Ok</Button>
-     
-    </div>,
+        <Button primary onClick={this.dispHint}>Hint</Button>
+
     <div className="images">
       <Image fluid src={image} />
     </div>
+  </div>
     ])
   }
 }
 }
-
