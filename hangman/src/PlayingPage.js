@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Header,Label,Input,Button,Form,Divider,Image} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
 import './index.css'
-
+import Keyboard from './Keyboard.js'
 ////
 function setCharAt(str,index,chr) {
     if(index > str.length-1) return str;
@@ -32,6 +32,12 @@ export default class Game extends React.Component{
     this.setCurrentPlayer=this.setCurrentPlayer.bind(this);
     this.playAgain=this.playAgain.bind(this);
     this.endGame=this.endGame.bind(this);
+    this.handleChar=this.handleChar.bind(this)
+  }
+  handleChar(char){
+    this.setState({guessedChar:char})
+    console.log(char,"Hennaaa")
+    this.validateGuess(char);
   }
   generateHidden(){
     let hidden='';
@@ -69,16 +75,21 @@ return hidden;
 
 
 
-  validateGuess(){
+  validateGuess(char){
       let word =this.props.location.state.word;
       let hidden =this.state.hiddenWord;
-      if(word.toUpperCase().includes(this.state.guessedChar.toUpperCase())){
-          hidden =this.generateHiddenChar(this.state.guessedChar,hidden);
+      console.log(word,"Word");
+      console.log(char,"CHAAAR")
+      console.log(word.toUpperCase().includes(char[0]))
+      if(word.toUpperCase().includes(char[0])){
+          hidden =this.generateHiddenChar(char[0],hidden);
+          console.log(hidden)
           this.setState({hiddenWord:hidden});
           this.checkEnd('w',0,hidden);
         }
       else {
           this.setState({livesWasted:this.state.livesWasted+1})
+          console.log(hidden)
           this.checkEnd('l',this.state.livesWasted+1);
         }
         console.log(this.input);
@@ -193,7 +204,8 @@ endGame(){
     </div>,
     <div className="images">
       <Image fluid src={image} />
-    </div>
+    </div>,
+      <Keyboard handleChar={this.handleChar}/>
     ])
   }
 }
