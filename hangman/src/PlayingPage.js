@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Header,Label,Input,Button,Form,Divider,Image} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
 import './index.css'
-import teezi from './images/hangman-0.png'
+
 ////
 function setCharAt(str,index,chr) {
     if(index > str.length-1) return str;
@@ -125,6 +125,8 @@ endGame(){
   this.setState({endGame:true})
 }
   render(){
+    let trials = this.state.livesWasted;
+    var image=require('./images/hangman-'+trials+'.png');
     if(!this.props.location.state){
         return(<Redirect to={{
                 pathname: '/'
@@ -190,7 +192,7 @@ endGame(){
      
     </div>,
     <div className="images">
-      <Image fluid src={teezi} />
+      <Image fluid src={image} />
     </div>
     ])
   }
