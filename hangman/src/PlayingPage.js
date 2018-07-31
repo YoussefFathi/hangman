@@ -217,16 +217,16 @@ dispSuperHint(){
         console.log(trials);
         var image=require('./images/hangman-'+trials+'.png');
     return([
-      
-    <div className="content">
+
+      <div className="content">
         <Header inverted>Rounds:{this.state.rounds}</Header>
-        <Divider hidden fitted/>
-        {this.props.location.state.p1Name}:{this.state.p1Score}
-        <Divider hidden fitted/>
-        {this.props.location.state.p2Name}:{this.state.p2Score}
-        <Divider hidden fitted/>
+        <Divider hidden/>
         Category:{this.props.location.state.category}
-        <Divider hidden fitted/>
+        <Divider hidden />
+        {this.props.location.state.p1Name}:{this.state.p1Score}
+        <Divider hidden />
+        {this.props.location.state.p2Name}:{this.state.p2Score}
+        <Divider hidden/>
         <Modal open={this.state.isHintHidden}  basic size='mini'>
           <Modal.Content id="modal-content">
           <Header id="modal-header" inverted>Hint:</Header>
@@ -234,22 +234,31 @@ dispSuperHint(){
           <Divider hidden fitted/>
           <Button id="modal-button" basic size='huge' compact onClick={this.dispHint} color='teal'>OK</Button>
       </Modal.Content>
+      </Modal>
+      <center>
 
-    </Modal>
+
+          <div className="images">
+            <Image fluid src={image} />
+          </div>
+      </center>
+    </div>,
+
+        <div>
+        <div className="content">
+        <center>
         <Divider hidden fitted/>
         <Header inverted className="hiddenWord">
         {this.state.hiddenWord}
         </Header>
-        <Divider hidden fitted/>
+        <Keyboard handleChar={this.handleChar}/>
+        <Divider hidden/>
         <Button basic inverted onClick={this.dispHint}>Hint</Button>
         <Button basic inverted disabled={this.state.isSuperHintDone} onClick={this.dispSuperHint}>Super Hint</Button>
+          </center>
+        </div>
+        </div>
 
-</div>,
-    <div className="images">
-      <Image fluid src={image} />
-
-    </div>,
-      <Keyboard handleChar={this.handleChar}/>
     ])
   }
 }
