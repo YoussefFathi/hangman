@@ -12,7 +12,7 @@ export default class WinScreen extends React.Component{
   }
   setWinner(){
     if(this.props.location.state.p1Score>this.props.location.state.p2Score)
-      return ("Congratulations " + this.props.location.state.p1Name +". You Won")
+      return ( "Congratulations " + this.props.location.state.p1Name +". You Won")
 
   if(this.props.location.state.p1Score==this.props.location.state.p2Score)
     return "It is a tie";
@@ -36,12 +36,10 @@ export default class WinScreen extends React.Component{
     }
     return(
       <div>
-        <Header>{this.setWinner()}</Header>
+        {this.setWinner()}
         <Divider hidden fitted/>
         <Button primary onClick={this.goBack}>Back to menu</Button>
      </div>
     )
     }
   }
-
-

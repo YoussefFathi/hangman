@@ -7,12 +7,12 @@ body{
 }
 .content{
     color:white;
-    margin:50px;
-    font-size: 40px;
+    margin:0px;
+    font-size: 20px;
 }
 .ui.header.hiddenWord{
     font-family: 'mario';
-    font-size:75px;
+    font-size:55px;
 }
 .firstPage{
     margin:200px !important;
@@ -33,10 +33,9 @@ body{
     font-family: 'mario';
 }
 .images{
-    margin-top:-200px;
-    margin-bottom: 0px;
-    margin-left:900px;
-    width:400px;
+  margin-top:-100px;
+  margin-bottom: 0px;
+  width:400px;
 }
 #modal-header{
   font-size: 70px;

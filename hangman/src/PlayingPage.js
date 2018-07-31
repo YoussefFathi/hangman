@@ -201,7 +201,7 @@ dispSuperHint(){
     }else
     if(this.state.isRoundDone){
       return(
-          <div>
+          <div className="content">
             {this.props.location.state.currentPlayer},You {this.state.result} this round.
             <Divider hidden fitted/>
             {this.props.location.state.p1Name} Score:{this.state.p1Score}
@@ -217,16 +217,16 @@ dispSuperHint(){
         console.log(trials);
         var image=require('./images/hangman-'+trials+'.png');
     return([
-
+      <div>
       <div className="content">
         <Header inverted>Rounds:{this.state.rounds}</Header>
-        <Divider hidden/>
+        <Divider fitted hidden/>
         Category:{this.props.location.state.category}
-        <Divider hidden />
+        <Divider fitted hidden />
         {this.props.location.state.p1Name}:{this.state.p1Score}
-        <Divider hidden />
+        <Divider fitted hidden />
         {this.props.location.state.p2Name}:{this.state.p2Score}
-        <Divider hidden/>
+        <Divider fitted hidden/>
         <Modal open={this.state.isHintHidden}  basic size='mini'>
           <Modal.Content id="modal-content">
           <Header id="modal-header" inverted>Hint:</Header>
@@ -235,13 +235,15 @@ dispSuperHint(){
           <Button id="modal-button" basic size='huge' compact onClick={this.dispHint} color='teal'>OK</Button>
       </Modal.Content>
       </Modal>
+      </div>
       <center>
-
+      <div>
 
           <div className="images">
             <Image fluid src={image} />
-          </div>
+          </div></div>
       </center>
+
     </div>,
 
         <div>

@@ -67,11 +67,11 @@ export default class Guess extends React.Component{
       )
     }
     return(
-      <div className="content">
+      <div style={{'margin-top':'50px'}}className="content">
         <center>
         <Header inverted className="secondPageHeader">It's {this.props.location.state.currentPlayer}'s turn</Header>
         <Header as='h2' inverted className="secondPageHeader" style={{'font-size':'45px'}}>Now Enter Your Word</Header>
-        
+
         <Form  vertical onSubmit={this.guess}>
           <Form.Field width='5' compact>
           <Input type="text" placeholder="Enter a word" value={this.state.word} onChange={this.changeWord}/>
