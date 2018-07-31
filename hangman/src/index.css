@@ -1,14 +1,40 @@
 body{
     background-color: black;
 }
+@font-face {
+    font-family: 'mario'; /*a name to be used later*/
+    src: url('./gomarice_game_music_love.ttf'); /*URL to font*/
+}
 .content{
     color:white;
-    margin:100px;
+    margin:50px;
+}
+.ui.header.hiddenWord{
+    font-family: 'mario';
+    font-size:75px;
+}
+.firstPage{
+    margin:200px !important;
+}
+.ui.header.secondPageHeader{
+    font-size: 75px;
+    font-family: 'mario';
+}
+.ui.label.firstPageLabels{
+    font-family: 'mario';
+    font-size: 15px;
+}
+.ui.button[type=submit]{
+    font-size:20px;
+}
+.ui.header.firstPageHeader{
+    font-size: 175px;
+    font-family: 'mario';
 }
 .images{
     margin-top:-350px;
     margin-bottom: 0px;
-    margin-left:700px;
+    margin-left:900px;
     width:400px;
 }
 #modal-header{

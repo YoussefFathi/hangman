@@ -5,6 +5,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 import PlayingPage from './PlayingPage';
 import { BrowserRouter } from 'react-router-dom';
 import { Redirect } from 'react-router'
+import './index.css'
 ////
 const categoryOptions = [
   {key:'movTV', text:'Movies&Tv',value:'Movies&Tv'},
@@ -66,14 +67,24 @@ export default class Guess extends React.Component{
       )
     }
     return(
-      <div>
-        <Header>{this.props.location.state.currentPlayer}</Header>
-        <Form onSubmit={this.guess}>
+      <div className="content">
+        <center>
+        <Header inverted className="secondPageHeader">It's {this.props.location.state.currentPlayer}'s turn</Header>
+        <Header as='h2' inverted className="secondPageHeader" style={{'font-size':'45px'}}>Now Enter Your Word</Header>
+        
+        <Form  vertical onSubmit={this.guess}>
+          <Form.Field width='5' compact>
           <Input type="text" placeholder="Enter a word" value={this.state.word} onChange={this.changeWord}/>
+          </Form.Field>
+          <Form.Field  width='5'>
           <Dropdown placeholder='Select a category'   onChange={this.changeCategory} compact selection value={this.state.category} options={categoryOptions} />
+          </Form.Field>
+          <Form.Field  width='5'>
           <Input type="text" placeholder="Hint" value={this.state.hint} onChange={this.changeHint}/>
-          <Button primary type = "submit">OK</Button>
+          </Form.Field>
+          <Button basic inverted type = "submit">OK</Button>
         </Form>
+        </center>
       </div>
 
     )

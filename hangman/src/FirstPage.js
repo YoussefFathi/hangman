@@ -35,19 +35,20 @@ export default class MainMenu extends React.Component{
           }} />)
    }
     return(
-    <div>
+    <div className='firstPage'>
     <center>
-      <Header size='huge' as='h1'>Hangman</Header>
+      <Header inverted className="firstPageHeader" size='huge' as='h1'>Hangman</Header>
       <Form onSubmit={this.submitNames}>
-        <Label>
+        <Label className="firstPageLabels">
           Player 1 ENTER YOUR NAME:
           <Input type="text" onChange = {this.changeP1Name} value ={this.state.player1Name}/>
         </Label>
-        <Label>
+        <Label className="firstPageLabels">
           Player 2 ENTER YOUR NAME:
           <Input type="text" onChange = {this.changeP2Name} value={this.state.player2Name}/>
         </Label>
-        <Button primary type="submit">Ok</Button>
+        <Divider hidden/>
+        <Button basic inverted type="submit">Ok</Button>
       </Form>
 
     </center>

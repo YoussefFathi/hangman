@@ -97,8 +97,7 @@ return hidden;
           this.checkEnd('l',this.state.livesWasted+1);
         }
         console.log(this.input);
-        this.input.inputRef.value='';
-        this.input.inputRef.placeholder='Enter Letter';
+       
   }
   checkEnd(str,lives,hidden){
     let p1score=this.state.p1Score;
@@ -196,13 +195,11 @@ dispHint(){
       }else{
     return([
     <div className="content">
-        <Header>Rounds:{this.state.rounds}</Header>
+        <Header inverted>Rounds:{this.state.rounds}</Header>
         <Divider hidden fitted/>
         {this.props.location.state.p1Name}:{this.state.p1Score}
         <Divider hidden fitted/>
         {this.props.location.state.p2Name}:{this.state.p2Score}
-        <Divider hidden fitted/>
-        TrialsWasted:{this.state.livesWasted}
         <Divider hidden fitted/>
         Category:{this.props.location.state.category}
         <Divider hidden fitted/>
@@ -216,17 +213,15 @@ dispHint(){
 
     </Modal>
         <Divider hidden fitted/>
+        <Header inverted className="hiddenWord">
         {this.state.hiddenWord}
+        </Header>
         <Divider hidden fitted/>
-        <Input compact maxLength='1' type="text" placeholder='Enter Letter' ref={(a)=>{this.input=a}} onChange={this.changeGuess}/>
-        <Button primary onClick={this.validateGuess}>Ok</Button>
+       
         <Button primary onClick={this.dispHint}>Hint</Button>
-
+</div>,
     <div className="images">
       <Image fluid src={image} />
-
-    </div>
-  </div>
 
     </div>,
       <Keyboard handleChar={this.handleChar}/>
