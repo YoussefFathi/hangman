@@ -43,6 +43,7 @@ export default class MainMenu extends React.Component{
           Player 1 ENTER YOUR NAME:
           <Input type="text" onChange = {this.changeP1Name} value ={this.state.player1Name}/>
         </Label>
+        <Divider hidden/>
         <Label className="firstPageLabels">
           Player 2 ENTER YOUR NAME:
           <Input type="text" onChange = {this.changeP2Name} value={this.state.player2Name}/>

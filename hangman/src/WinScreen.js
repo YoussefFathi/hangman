@@ -35,11 +35,13 @@ export default class WinScreen extends React.Component{
               }} />)
     }
     return(
-      <div>
+      <center>
+      <div className="win-screen">
         {this.setWinner()}
-        <Divider hidden fitted/>
-        <Button primary onClick={this.goBack}>Back to menu</Button>
+        <Divider hidden/>
+        <Button basic inverted onClick={this.goBack}>Back to menu</Button>
      </div>
+     </center>
     )
     }
   }

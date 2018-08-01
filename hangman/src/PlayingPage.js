@@ -39,6 +39,7 @@ export default class Game extends React.Component{
     this.dispHint=this.dispHint.bind(this);
     this.handleChar=this.handleChar.bind(this);
     this.dispSuperHint=this.dispSuperHint.bind(this);
+    this.closeSuperHint=this.closeSuperHint.bind(this);
   }
   handleChar(char){
     this.setState({guessedChar:char})
@@ -135,6 +136,8 @@ endGame(){
   this.setState({endGame:true})
 }
 dispHint(){
+  if(this.state.livesWasted==8)
+    return;
   if(this.state.isHintHidden)
     this.setState({isHintHidden:false});
   else {
@@ -166,6 +169,9 @@ dispSuperHint(){
 
 
   }
+  closeSuperHint(){
+    this.setState({superHintMessage:false});
+  }
 
   render(){
     if(!this.props.location.state){
@@ -173,7 +179,9 @@ dispSuperHint(){
                 pathname: '/'
                   }} />
         )
-    }else
+    }
+    let trials = this.state.livesWasted;
+    var image=require('./images/hangman-'+trials+'.png');
     if(this.state.endGame){
       return(
         <Redirect to={{
@@ -201,40 +209,60 @@ dispSuperHint(){
     }else
     if(this.state.isRoundDone){
       return(
-          <div className="content">
-            {this.props.location.state.currentPlayer},You {this.state.result} this round.
-            <Divider hidden fitted/>
-            {this.props.location.state.p1Name} Score:{this.state.p1Score}
-            <Divider hidden fitted/>
-            {this.props.location.state.p2Name} Score:{this.state.p2Score}
-            <Divider hidden fitted/>
-            <Button primary onClick={this.playAgain}>Play Again</Button>
-            <Button secondary onClick={this.endGame}>End Game</Button>
+            <center>
+            <div className="content">
+              {this.props.location.state.currentPlayer},You {this.state.result} this round.
+              <Divider hidden />
+              {this.props.location.state.p1Name} Score:{this.state.p1Score}
+              <Divider hidden />
+              {this.props.location.state.p2Name} Score:{this.state.p2Score}
+              <Divider hidden />
+              <div style={{'margin-bottom':'100px'}}>
+              The word was :
+              <Divider hidden/>
+                <Header inverted className="hiddenWord">
+                                {this.props.location.state.word}
+                              </Header>
+              </div>
+              <Divider hidden/>
+                <div className="images">
+                      <Image fluid src={image} />
+                </div>
+              <Divider hidden/>
+              <Button basic inverted  onClick={this.playAgain}>Play Again</Button>
+              <Button basic inverted onClick={this.endGame}>End Game</Button>
           </div>
+          </center>
         )
       }else{
-        let trials = this.state.livesWasted;
-        console.log(trials);
-        var image=require('./images/hangman-'+trials+'.png');
+
     return([
       <div>
       <div className="content">
-        <Header inverted>Rounds:{this.state.rounds}</Header>
+        <Header style={{'font-family':'mario'}} inverted>Rounds:{this.state.rounds}</Header>
         <Divider fitted hidden/>
         Category:{this.props.location.state.category}
         <Divider fitted hidden />
         {this.props.location.state.p1Name}:{this.state.p1Score}
         <Divider fitted hidden />
         {this.props.location.state.p2Name}:{this.state.p2Score}
-        <Divider fitted hidden/>
+        <Divider hidden/>
         <Modal open={this.state.isHintHidden}  basic size='mini'>
           <Modal.Content id="modal-content">
           <Header id="modal-header" inverted>Hint:</Header>
           {this.props.location.state.hint}
           <Divider hidden fitted/>
-          <Button id="modal-button" basic size='huge' compact onClick={this.dispHint} color='teal'>OK</Button>
-      </Modal.Content>
+          <Button  id="modal-button" basic size='huge' compact onClick={this.dispHint} color='teal'>OK</Button>
+          </Modal.Content>
       </Modal>
+      <Modal open={this.state.superHintMessage}  basic size='huge'>
+        <Modal.Content id="modal-content">
+          You can only use the super Hint if you have more than 2 lives left!
+        <Divider hidden fitted/>
+        <Button style={{'margin-left':'40%'}}  basic size='huge' compact onClick={this.closeSuperHint} color='teal'>OK</Button>
+    </Modal.Content>
+    </Modal>
+
       </div>
       <center>
       <div>
@@ -255,8 +283,8 @@ dispSuperHint(){
         </Header>
         <Keyboard handleChar={this.handleChar}/>
         <Divider hidden/>
-        <Button basic inverted onClick={this.dispHint}>Hint</Button>
-        <Button basic inverted disabled={this.state.isSuperHintDone} onClick={this.dispSuperHint}>Super Hint</Button>
+        <Button data-tooltip="Generates a hint (cost:1 trial)" basic inverted onClick={this.dispHint}>Hint</Button>
+        <Button data-tooltip="Generates a missing letter (cost: 2 trials)" basic inverted disabled={this.state.isSuperHintDone} onClick={this.dispSuperHint}>Super Hint</Button>
           </center>
         </div>
         </div>
