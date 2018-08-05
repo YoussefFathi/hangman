@@ -65,7 +65,16 @@ export default class Guess extends React.Component{
               }
                 }} />
       )
+      
     }
+    this.state.otherPlayer="";
+      if(this.props.location.state.currentPlayer==this.props.location.state.p1Name){
+       this.state.otherPlayer = this.props.location.state.p2Name
+      }else{
+       this.state.otherPlayer = this.props.location.state.p1Name
+      }
+      this.state.otherPlayer +=  " , Enter your Word"
+      console.log(this.state.otherPlayer,"HENAAAA")
     return(
       <div style={{'margin-top':'50px'}}className="content">
         <center>
@@ -74,7 +83,7 @@ export default class Guess extends React.Component{
 
         <Form  vertical onSubmit={this.guess}>
           <Form.Field width='5' compact>
-          <Input type="text" placeholder="Enter a word" value={this.state.word} onChange={this.changeWord}/>
+          <Input type="text" placeholder={this.state.otherPlayer} value={this.state.word} onChange={this.changeWord}/>
           </Form.Field>
           <Form.Field  width='5'>
           <Dropdown placeholder='Select a category'   onChange={this.changeCategory} compact selection value={this.state.category} options={categoryOptions} />
