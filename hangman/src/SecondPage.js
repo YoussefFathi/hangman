@@ -73,17 +73,16 @@ export default class Guess extends React.Component{
       }else{
        this.state.otherPlayer = this.props.location.state.p1Name
       }
-      this.state.otherPlayer +=  " , Enter your Word"
-      console.log(this.state.otherPlayer,"HENAAAA")
+      
     return(
       <div style={{'margin-top':'50px'}}className="content">
         <center>
         <Header inverted className="secondPageHeader">It's {this.props.location.state.currentPlayer}'s turn</Header>
-        <Header as='h2' inverted className="secondPageHeader" style={{'font-size':'45px'}}>Now Enter Your Word</Header>
+        <Header as='h2' inverted className="secondPageHeader" style={{'font-size':'45px'}}>{this.state.otherPlayer} , Now Enter Your Word</Header>
 
         <Form  vertical onSubmit={this.guess}>
           <Form.Field width='5' compact>
-          <Input type="text" placeholder={this.state.otherPlayer} value={this.state.word} onChange={this.changeWord}/>
+          <Input type="text" placeholder="Word" value={this.state.word} onChange={this.changeWord}/>
           </Form.Field>
           <Form.Field  width='5'>
           <Dropdown placeholder='Select a category'   onChange={this.changeCategory} compact selection value={this.state.category} options={categoryOptions} />
